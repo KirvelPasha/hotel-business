@@ -2,6 +2,8 @@ package com.netcracker.controller;
 
 
 import com.netcracker.dto.CommentDto;
+import com.netcracker.service.ApartmentService;
+import com.netcracker.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

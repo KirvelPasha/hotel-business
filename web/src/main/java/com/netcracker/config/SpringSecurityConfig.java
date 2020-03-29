@@ -38,7 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/apartmentypes").hasAuthority("admin")
                 .antMatchers(HttpMethod.GET, "/personroles/**").hasAuthority("admin")
                 .antMatchers(HttpMethod.POST, "/apartments").hasAuthority("admin")
-                .antMatchers(HttpMethod.GET, "/person/**").hasAuthority("admin")
+//                .antMatchers(HttpMethod.GET, "/person/**").hasAuthority("admin")
                 .and()
                 .csrf().disable();
     }
