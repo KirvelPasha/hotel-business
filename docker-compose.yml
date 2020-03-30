@@ -1,0 +1,27 @@
+version: '3'
+
+volumes:
+  pgdata:
+
+services:
+
+  hotel:
+    container_name: hotel-service
+    build: web/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres-service
+    image: postgres
+    hostname: localhost
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=netcracker_hotel
+    volumes:
+      - pgdata:/var/lib/postgresql/data
