@@ -3,7 +3,7 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    url: jdbc:postgresql://localhost:5431/netcracker_hotel
+    url: jdbc:postgresql://db:5432/netcracker_hotel
     password: postgres
   # JPA properties
   jpa:

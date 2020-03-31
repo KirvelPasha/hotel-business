@@ -6,19 +6,19 @@ volumes:
 services:
 
   hotel:
-    container_name: hotel-service
     build: web/
+    container_name: hotel-service
     ports:
       - "8080:8080"
-    depends_on:
-      - postgres
+    links:
+      - db
 
-  postgres:
-    container_name: postgres-service
+  db:
     image: postgres
-    hostname: localhost
+    container_name: db-service
     ports:
       - "5431:5432"
+    hostname: db
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
