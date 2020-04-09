@@ -1,19 +1,6 @@
 spring:
-  # Database
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    url: jdbc:postgresql://db:5432/netcracker_hotel
-    password: postgres
-  # JPA properties
-  jpa:
-    hibernate:
-      ddl-auto: create
-      show-sql: true
-      database: postgresql
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
-      open-in-view: false
-      generate-ddl: true
-    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+  profiles:
+    active: dev
 
-
+server:
+  port: 8080
