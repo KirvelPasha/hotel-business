@@ -8,13 +8,16 @@ import com.netcracker.entity.ApartmentTypes;
 import com.netcracker.repository.ApartmentRepository;
 import com.netcracker.service.ApartmentService;
 import com.netcracker.service.ApartmentTypeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ApartmentServiceImpl implements ApartmentService {
 
@@ -33,6 +36,17 @@ public class ApartmentServiceImpl implements ApartmentService {
         this.apartmentTypeConverter = apartmentTypeConverter;
     }
 
+    @Override
+    @Cacheable("apartments")
+    public ApartmentDto getById(Integer id) {
+        log.info("getting apartment by id: {}", id);
+        Optional<Apartment> optionalApartment = apartmentRepository.findById(id);
+        if (optionalApartment.isPresent()) {
+            return apartmentConverter.converter(optionalApartment.get());
+        }
+        throw new IllegalArgumentException("No such apartment");
+    }
+
 
     @Override
     public List<ApartmentDto> getAll() {
@@ -40,15 +54,6 @@ public class ApartmentServiceImpl implements ApartmentService {
                 .stream()
                 .map(apartment -> apartmentConverter.converter(apartment))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public ApartmentDto getById(Integer id) {
-        Optional<Apartment> optionalApartment = apartmentRepository.findById(id);
-        if (optionalApartment.isPresent()) {
-            return apartmentConverter.converter(optionalApartment.get());
-        }
-        throw new IllegalArgumentException("No such apartment");
     }
 
     @Override
