@@ -94,8 +94,8 @@ public class ApartmentController {
     @ApiOperation(value = "Gets apartment by apartment type id")
     @GetMapping(value = "/filterbytypeid")
     ResponseEntity<List<ApartmentDto>> getApartmentsByApartmentTypes_Id(@RequestParam("typeId") Integer typeId) {
-        log.info("getApartmentsByApartmentTypes_Id,ApartmentController");
-        return new ResponseEntity<>(apartmentService.getApartmentsByApartmentTypes_Id(typeId),
+        log.info("getApartmentsByApartmentTypesId,ApartmentController");
+        return new ResponseEntity<>(apartmentService.getApartmentsByApartmentTypesId(typeId),
                 HttpStatus.OK);
 
     }

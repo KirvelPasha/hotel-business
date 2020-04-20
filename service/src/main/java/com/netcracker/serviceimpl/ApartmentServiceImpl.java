@@ -10,6 +10,8 @@ import com.netcracker.service.ApartmentService;
 import com.netcracker.service.ApartmentTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +42,10 @@ public class ApartmentServiceImpl implements ApartmentService {
     @Cacheable("apartments")
     public ApartmentDto getById(Integer id) {
         log.info("getting apartment by id: {}", id);
+
         Optional<Apartment> optionalApartment = apartmentRepository.findById(id);
         if (optionalApartment.isPresent()) {
+            String s = "dssfsdf";
             return apartmentConverter.converter(optionalApartment.get());
         }
         throw new IllegalArgumentException("No such apartment");
@@ -50,9 +54,10 @@ public class ApartmentServiceImpl implements ApartmentService {
 
     @Override
     public List<ApartmentDto> getAll() {
+        log.info("getting all apartments");
         return apartmentRepository.findAll()
                 .stream()
-                .map(apartment -> apartmentConverter.converter(apartment))
+                .map(apartmentConverter::converter)
                 .collect(Collectors.toList());
     }
 
@@ -63,7 +68,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         }
         return apartmentRepository.getCheaperApartments(price)
                 .stream()
-                .map(apartment -> apartmentConverter.converter(apartment))
+                .map(apartmentConverter::converter)
                 .collect(Collectors.toList());
     }
 
@@ -74,7 +79,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         }
         return apartmentRepository.getApartmentsByCountPlaces(countPlaces)
                 .stream()
-                .map(apartment -> apartmentConverter.converter(apartment))
+                .map(apartmentConverter::converter)
                 .collect(Collectors.toList());
     }
 
@@ -85,7 +90,7 @@ public class ApartmentServiceImpl implements ApartmentService {
         }
         return apartmentRepository.getApartmentsByCountRooms(countRooms)
                 .stream()
-                .map(apartment -> apartmentConverter.converter(apartment))
+                .map(apartmentConverter::converter)
                 .collect(Collectors.toList());
     }
 
@@ -96,13 +101,15 @@ public class ApartmentServiceImpl implements ApartmentService {
         }
         return apartmentRepository.getApartmentsByCountPlacesAndCountRooms(countPlaces, countRooms)
                 .stream()
-                .map(apartment -> apartmentConverter.converter(apartment))
+                .map(apartmentConverter::converter)
                 .collect(Collectors.toList());
     }
 
 
     @Override
+    @CachePut("apartments")
     public ApartmentDto save(ApartmentDto apartmentDto) {
+        log.info("save apartment");
         if (apartmentDto.getId() != null) {
             if (apartmentRepository.findById(apartmentDto.getId()).isPresent()) {
                 throw new IllegalArgumentException("Apartment  with this id already exists");
@@ -116,13 +123,19 @@ public class ApartmentServiceImpl implements ApartmentService {
     }
 
     @Override
-    public List<ApartmentDto> getApartmentsByApartmentTypes_Id(Integer typeId) {
+    public List<ApartmentDto> getApartmentsByApartmentTypesId(Integer typeId) {
         apartmentTypeService.getById(typeId);
         return apartmentRepository.getApartmentsByApartmentTypes_Id(typeId)
                 .stream()
-                .map(apartment -> apartmentConverter.converter(apartment))
+                .map(apartmentConverter::converter)
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @CacheEvict(value = "apartment")
+    public void delete(Integer id) {
+        log.info("delete apartment by id: {}", id);
+        apartmentRepository.deleteById(id);
+    }
 
 }

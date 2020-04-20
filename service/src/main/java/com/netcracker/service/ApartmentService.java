@@ -21,7 +21,7 @@ public interface ApartmentService {
 
     ApartmentDto save(ApartmentDto apartmentDto);
 
-    List<ApartmentDto> getApartmentsByApartmentTypes_Id(Integer typeId);
+    List<ApartmentDto> getApartmentsByApartmentTypesId(Integer typeId);
 
-
+    void delete(Integer id);
 }
