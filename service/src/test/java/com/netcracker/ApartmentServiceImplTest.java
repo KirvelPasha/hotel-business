@@ -25,7 +25,11 @@ import static org.mockito.Mockito.when;
 public class ApartmentServiceImplTest {
 
     @Mock
-    private Apartment apartment;
+    private Apartment apartment1;
+    @Mock
+    private Apartment apartment2;
+    @Mock
+    private Apartment apartment3;
     @Mock
     private ApartmentDto apartmentDto;
     @Mock
@@ -45,6 +49,10 @@ public class ApartmentServiceImplTest {
         MockitoAnnotations.initMocks(this);
         apartmentList = Stream.of(apartment).collect(Collectors.toList());
         apartmentDtoList = Stream.of(apartmentDto).collect(Collectors.toList());
+
+        setupApartment(apartment1, 1);
+        setupApartment(apartment2, 2);
+        setupApartment(apartment3, 3);
     }
 
     @Test
@@ -52,5 +60,9 @@ public class ApartmentServiceImplTest {
         when(apartmentRepository.findAll()).thenReturn(apartmentList);
         when(apartmentConverter.converter(apartment)).thenReturn(apartmentDto);
         assertEquals(apartmentDtoList, apartmentService.getAll());
+    }
+
+    private void setupApartment(Apartment apartment, Integer id) {
+        when(apartment.getId()).thenReturn(id);
     }
 }
