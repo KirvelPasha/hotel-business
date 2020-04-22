@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -37,10 +38,11 @@ public class ApartmentServiceImplTest {
     private ApartmentRepository apartmentRepository;
 
     @InjectMocks
-    private ApartmentService apartmentService;
+    private ApartmentServiceImpl apartmentService;
 
     @Before
     public void init() {
+        MockitoAnnotations.initMocks(this);
         apartmentList = Stream.of(apartment).collect(Collectors.toList());
         apartmentDtoList = Stream.of(apartmentDto).collect(Collectors.toList());
     }
@@ -50,6 +52,5 @@ public class ApartmentServiceImplTest {
         when(apartmentRepository.findAll()).thenReturn(apartmentList);
         when(apartmentConverter.converter(apartment)).thenReturn(apartmentDto);
         assertEquals(apartmentDtoList, apartmentService.getAll());
-
     }
 }
