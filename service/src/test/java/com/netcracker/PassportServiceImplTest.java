@@ -50,8 +50,8 @@ public class PassportServiceImplTest {
         passportList = Stream.of(passport1, passport2).collect(Collectors.toList());
         passportDtoList = Stream.of(passportDto1, passportDto2).collect(Collectors.toList());
 
-        setupPassport(passport1,1,1234567, "16/12/2020");
-        setupPassport(passport2,1,1434567, "16/11/2020");
+        setupPassport(passport1, 1, 1234567, "16/12/2020");
+        setupPassport(passport2, 1, 1434567, "16/11/2020");
     }
 
 

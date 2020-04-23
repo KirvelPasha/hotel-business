@@ -43,18 +43,18 @@ public class ApartmentServiceImplTest {
     private ApartmentConverter apartmentConverter;
 
     private List<Apartment> apartmentList;
-    private  List<ApartmentDto> apartmentDtoList;
+    private List<ApartmentDto> apartmentDtoList;
 
-    private List<ApartmentDto>  apartmentListDtoCheaper;
+    private List<ApartmentDto> apartmentListDtoCheaper;
 
-    private  List<Apartment> apartmentListByCountRoom;
-    private List<ApartmentDto>  apartmentListDtoByCountRoom;
+    private List<Apartment> apartmentListByCountRoom;
+    private List<ApartmentDto> apartmentListDtoByCountRoom;
 
-    private List<Apartment>  apartmentListByCountPlaces;
-    private List<ApartmentDto>  apartmentListDtoByCountPlaces;
+    private List<Apartment> apartmentListByCountPlaces;
+    private List<ApartmentDto> apartmentListDtoByCountPlaces;
 
-    private List<Apartment>  apartmentListByCountPlacesAndRoom;
-    private List<ApartmentDto>  apartmentListDtoByCountPlacesAndRoom;
+    private List<Apartment> apartmentListByCountPlacesAndRoom;
+    private List<ApartmentDto> apartmentListDtoByCountPlacesAndRoom;
 
     @Mock
     private ApartmentRepository apartmentRepository;
@@ -103,7 +103,7 @@ public class ApartmentServiceImplTest {
     @Test
     public void getCheaperApartmentsTest() {
         int price = 150;
-        List<Apartment>  apartmentListCheaper = apartmentList.stream()
+        List<Apartment> apartmentListCheaper = apartmentList.stream()
                 .filter(apartment -> apartment.getPrice() <= price)
                 .collect(Collectors.toList());
         when(apartmentRepository.getCheaperApartments(price)).thenReturn(apartmentListCheaper);
@@ -133,7 +133,7 @@ public class ApartmentServiceImplTest {
     }
 
     @Test
-    public void getApartmentsByCountPlacesTest(){
+    public void getApartmentsByCountPlacesTest() {
         when(apartmentRepository.getApartmentsByCountPlaces(5)).thenReturn(apartmentListByCountPlaces);
         setupConverterApartment(apartment1, apartmentDto1);
         setupConverterApartment(apartment3, apartmentDto3);
@@ -146,7 +146,7 @@ public class ApartmentServiceImplTest {
     }
 
     @Test
-    public void getApartmentsByCountPlacesAndCountRoomsTest(){
+    public void getApartmentsByCountPlacesAndCountRoomsTest() {
         when(apartmentRepository.getApartmentsByCountPlacesAndCountRooms(5, 2))
                 .thenReturn(apartmentListByCountPlacesAndRoom);
         setupConverterApartment(apartment1, apartmentDto1);

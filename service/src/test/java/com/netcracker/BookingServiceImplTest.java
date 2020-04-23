@@ -10,14 +10,17 @@ import com.netcracker.entity.Person;
 import com.netcracker.repository.BookingRepository;
 import com.netcracker.serviceimpl.BookingServiceImpl;
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.awt.print.Book;
 import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class BookingServiceImplTest {
 
@@ -46,15 +49,26 @@ public class BookingServiceImplTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
+
+        setupBooking(booking1, 1);
+        setupBooking(booking2, 2);
+
+        setupBookingDto(bookingDto1, 1);
+        setupBookingDto(bookingDto2, 2);
     }
 
-    private void setupBooking(Booking booking, Integer id,String startDate,
-                              String endDate, Person person, Apartment apartment ) {
+    @Test
+    public void getByIdTest() {
+        when(bookingRepository.findById(1)).thenReturn(Optional.of(booking1));
+        setupConverterBooking(booking1, bookingDto1);
+        assertEquals(bookingDto1, bookingService.getById(1));
+    }
+
+    private void setupBooking(Booking booking, Integer id) {
         when(booking.getId()).thenReturn(id);
     }
 
-    private void setupBookingDto(BookingDto bookingDto, Integer id, String startDate,
-                                 String endDate, Person person, Apartment apartment) {
+    private void setupBookingDto(BookingDto bookingDto, Integer id) {
         when(bookingDto.getId()).thenReturn(id);
     }
 

@@ -50,10 +50,10 @@ public class ApartmentTypeServiceImplTest {
         apartmentTypeDtoList = Stream.of(apartmentTypeDto1, apartmentTypeDto2).collect(Collectors.toList());
 
         setupApartmentType(apartmentTypes1, 1, "vip");
-        setupApartmentType(apartmentTypes2,2, "vip");
+        setupApartmentType(apartmentTypes2, 2, "vip");
 
         setupApartmentTypeDto(apartmentTypeDto1, 1, "vip");
-        setupApartmentTypeDto(apartmentTypeDto2,2, "vip");
+        setupApartmentTypeDto(apartmentTypeDto2, 2, "vip");
     }
 
     @Test
@@ -65,21 +65,21 @@ public class ApartmentTypeServiceImplTest {
     }
 
     @Test
-    public void getByIdTest(){
+    public void getByIdTest() {
         when(apartmentTypeRepository.findById(1)).thenReturn(Optional.of(apartmentTypes1));
         setupConverterApartmentType(apartmentTypes1, apartmentTypeDto1);
         assertEquals(apartmentTypeDto1, apartmentTypeService.getById(1));
     }
 
     @Test
-    public void saveTest(){
+    public void saveTest() {
         when(apartmentTypeRepository.save(apartmentTypes1)).thenReturn(apartmentTypes1);
         setupConverterApartmentType(apartmentTypes1, apartmentTypeDto1);
         assertEquals(apartmentTypeDto1, apartmentTypeService.save(apartmentTypeDto1));
     }
 
     @Test
-    public void deleteByIdTest(){
+    public void deleteByIdTest() {
         when(apartmentTypeRepository.findById(1)).thenReturn(Optional.of(apartmentTypes1));
         apartmentTypeService.deleteById(1);
         verify(apartmentTypeRepository, times(1)).deleteById(1);
