@@ -45,7 +45,6 @@ public class ApartmentServiceImplTest {
     private List<Apartment> apartmentList;
     private  List<ApartmentDto> apartmentDtoList;
 
-    private List<Apartment>  apartmentListCheaper;
     private List<ApartmentDto>  apartmentListDtoCheaper;
 
     private  List<Apartment> apartmentListByCountRoom;
@@ -68,7 +67,6 @@ public class ApartmentServiceImplTest {
         MockitoAnnotations.initMocks(this);
         apartmentList = Stream.of(apartment1, apartment2, apartment3).collect(Collectors.toList());
         apartmentDtoList = Stream.of(apartmentDto1, apartmentDto2, apartmentDto3).collect(Collectors.toList());
-        apartmentListCheaper = Stream.of(apartment1, apartment2).collect(Collectors.toList());
         apartmentListDtoCheaper = Stream.of(apartmentDto1, apartmentDto2).collect(Collectors.toList());
         apartmentListByCountRoom = Stream.of(apartment1, apartment3).collect(Collectors.toList());
         apartmentListDtoByCountRoom = Stream.of(apartmentDto1, apartmentDto3).collect(Collectors.toList());
@@ -104,10 +102,16 @@ public class ApartmentServiceImplTest {
 
     @Test
     public void getCheaperApartmentsTest() {
-        when(apartmentRepository.getCheaperApartments(150)).thenReturn(apartmentListCheaper);
+        int price = 150;
+        List<Apartment>  apartmentListCheaper = apartmentList.stream()
+                .filter(apartment -> apartment.getPrice() <= price)
+                .collect(Collectors.toList());
+        when(apartmentRepository.getCheaperApartments(price)).thenReturn(apartmentListCheaper);
+
         setupConverterApartment(apartment1, apartmentDto1);
         setupConverterApartment(apartment2, apartmentDto2);
-        assertEquals(apartmentListDtoCheaper, apartmentService.getCheaperApartments(150));
+
+        assertEquals(apartmentListDtoCheaper, apartmentService.getCheaperApartments(price));
     }
 
     @Test(expected = IllegalArgumentException.class)
