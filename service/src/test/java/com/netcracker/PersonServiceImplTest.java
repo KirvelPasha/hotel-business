@@ -56,7 +56,10 @@ public class PersonServiceImplTest {
       }
 
     @Test(expected = PersonNotFoundException.class)
-    public void findByIdTestException(){ personService.getById(1);}
+    public void getByIdTestException() {
+        int id = 120;
+        when(personRepository.findById(id)).thenReturn(Optional.empty());
+        personService.getById(id); }
 
     @Test
       public void getByLogin() {
@@ -65,7 +68,11 @@ public class PersonServiceImplTest {
     }
 
     @Test(expected = PersonNotFoundException.class)
-    public void findByLoginTestException(){ personService.findByLogin(LOGIN);}
+    public void getByLoginTestException() {
+        String login = "one";
+        when(personRepository.findByLogin(login)).thenReturn(Optional.empty());
+        personService.findByLogin(login); }
+
 
     private void setupPerson(Person person, Integer id, String login) {
         when(person.getId()).thenReturn(id);

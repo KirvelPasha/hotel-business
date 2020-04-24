@@ -69,8 +69,16 @@ public class PersonRoleServiceImplTest {
 
     @Test
     public void getByIdTest(){
-        when(personRoleRepository.findById(1)).thenReturn(Optional.of(personRole1));
-        assertEquals(personRole1, personRoleService.getById(1));
+        int id = 1;
+        when(personRoleRepository.findById(id)).thenReturn(Optional.of(personRole1));
+        assertEquals(personRole1, personRoleService.getById(id));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getByIdTestException() {
+        int id = 120;
+        when(personRoleRepository.findById(id)).thenReturn(Optional.empty());
+        personRoleService.getById(id);
     }
 
     @Test

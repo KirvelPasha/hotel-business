@@ -80,12 +80,19 @@ public class DishServiceImplTest {
         assertEquals(dishDto1, dishService.getById(1));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void getByIdTestException() {
+        int id = 120;
+        when(dishRepository.findById(id)).thenReturn(Optional.empty());
+        dishService.getById(id); }
+
     @Test
     public void getCheaperDishTest() {
         int price = 11;
         List<Dish> dishCheaperList = dishList.stream()
                 .filter(dish -> dish.getPrice() <= price)
                 .collect(Collectors.toList());
+        dishDtoCheaperList = Stream.of(dishDto1, dishDto3).collect(Collectors.toList());
         when(dishRepository.getCheaperDish(price)).thenReturn(dishCheaperList);
         assertEquals(dishDtoCheaperList, dishService.getCheaperDish(11));
     }

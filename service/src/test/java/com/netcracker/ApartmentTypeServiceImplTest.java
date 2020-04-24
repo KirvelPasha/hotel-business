@@ -67,9 +67,16 @@ public class ApartmentTypeServiceImplTest {
 
     @Test
     public void getByIdTest() {
-        when(apartmentTypeRepository.findById(1)).thenReturn(Optional.of(apartmentTypes1));
-        assertEquals(apartmentTypeDto1, apartmentTypeService.getById(1));
+        int id = 1;
+        when(apartmentTypeRepository.findById(id)).thenReturn(Optional.of(apartmentTypes1));
+        assertEquals(apartmentTypeDto1, apartmentTypeService.getById(id));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getByIdTestException() {
+        int id = 120;
+        when(apartmentTypeRepository.findById(id)).thenReturn(Optional.empty());
+        apartmentTypeService.getById(id); }
 
     @Test
     public void saveTest() {
@@ -79,9 +86,10 @@ public class ApartmentTypeServiceImplTest {
 
     @Test
     public void deleteByIdTest() {
-        when(apartmentTypeRepository.findById(1)).thenReturn(Optional.of(apartmentTypes1));
-        apartmentTypeService.deleteById(1);
-        verify(apartmentTypeRepository, times(1)).deleteById(1);
+        int id = 1;
+        when(apartmentTypeRepository.findById(id)).thenReturn(Optional.of(apartmentTypes1));
+        apartmentTypeService.deleteById(id);
+        verify(apartmentTypeRepository, times(1)).deleteById(id);
     }
 
 

@@ -61,8 +61,16 @@ public class BookingServiceImplTest {
 
     @Test
     public void getByIdTest() {
-        when(bookingRepository.findById(1)).thenReturn(Optional.of(booking1));
-        assertEquals(bookingDto1, bookingService.getById(1));
+        int id = 1;
+        when(bookingRepository.findById(id)).thenReturn(Optional.of(booking1));
+        assertEquals(bookingDto1, bookingService.getById(id));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getByIdTestException() {
+        int id = 120;
+        when(bookingRepository.findById(id)).thenReturn(Optional.empty());
+        bookingService.getById(id);
     }
 
     private void setupBooking(Booking booking, Integer id) {
