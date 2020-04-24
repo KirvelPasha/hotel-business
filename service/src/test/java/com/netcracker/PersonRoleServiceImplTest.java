@@ -64,8 +64,6 @@ public class PersonRoleServiceImplTest {
     @Test
     public void getAllTest(){
         when(personRoleRepository.findAll()).thenReturn(personRoleList);
-       // setupConverterPersonRole(personRole1, personRoleDto1);
-       // setupConverterPersonRole(personRole2, personRoleDto2);
         assertEquals(personRoleList, personRoleService.getAll());
     }
 

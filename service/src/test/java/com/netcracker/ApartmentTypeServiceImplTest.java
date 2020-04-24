@@ -54,27 +54,26 @@ public class ApartmentTypeServiceImplTest {
 
         setupApartmentTypeDto(apartmentTypeDto1, 1, "vip");
         setupApartmentTypeDto(apartmentTypeDto2, 2, "vip");
+
+        setupConverterApartmentType(apartmentTypes1, apartmentTypeDto1);
+        setupConverterApartmentType(apartmentTypes2, apartmentTypeDto2);
     }
 
     @Test
     public void getAllTest() {
         when(apartmentTypeRepository.findAll()).thenReturn(apartmentTypesList);
-        setupConverterApartmentType(apartmentTypes1, apartmentTypeDto1);
-        setupConverterApartmentType(apartmentTypes2, apartmentTypeDto2);
         assertEquals(apartmentTypeDtoList, apartmentTypeService.getAll());
     }
 
     @Test
     public void getByIdTest() {
         when(apartmentTypeRepository.findById(1)).thenReturn(Optional.of(apartmentTypes1));
-        setupConverterApartmentType(apartmentTypes1, apartmentTypeDto1);
         assertEquals(apartmentTypeDto1, apartmentTypeService.getById(1));
     }
 
     @Test
     public void saveTest() {
         when(apartmentTypeRepository.save(apartmentTypes1)).thenReturn(apartmentTypes1);
-        setupConverterApartmentType(apartmentTypes1, apartmentTypeDto1);
         assertEquals(apartmentTypeDto1, apartmentTypeService.save(apartmentTypeDto1));
     }
 

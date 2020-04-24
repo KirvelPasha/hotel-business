@@ -55,12 +55,13 @@ public class BookingServiceImplTest {
 
         setupBookingDto(bookingDto1, 1);
         setupBookingDto(bookingDto2, 2);
+
+        setupConverterBooking(booking1, bookingDto1);
     }
 
     @Test
     public void getByIdTest() {
         when(bookingRepository.findById(1)).thenReturn(Optional.of(booking1));
-        setupConverterBooking(booking1, bookingDto1);
         assertEquals(bookingDto1, bookingService.getById(1));
     }
 

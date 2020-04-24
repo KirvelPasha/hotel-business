@@ -46,14 +46,8 @@ public class ApartmentServiceImplTest {
     private List<ApartmentDto> apartmentDtoList;
 
     private List<ApartmentDto> apartmentListDtoCheaper;
-
-    private List<Apartment> apartmentListByCountRoom;
     private List<ApartmentDto> apartmentListDtoByCountRoom;
-
-    private List<Apartment> apartmentListByCountPlaces;
     private List<ApartmentDto> apartmentListDtoByCountPlaces;
-
-    private List<Apartment> apartmentListByCountPlacesAndRoom;
     private List<ApartmentDto> apartmentListDtoByCountPlacesAndRoom;
 
     @Mock
@@ -68,11 +62,8 @@ public class ApartmentServiceImplTest {
         apartmentList = Stream.of(apartment1, apartment2, apartment3).collect(Collectors.toList());
         apartmentDtoList = Stream.of(apartmentDto1, apartmentDto2, apartmentDto3).collect(Collectors.toList());
         apartmentListDtoCheaper = Stream.of(apartmentDto1, apartmentDto2).collect(Collectors.toList());
-        apartmentListByCountRoom = Stream.of(apartment1, apartment3).collect(Collectors.toList());
         apartmentListDtoByCountRoom = Stream.of(apartmentDto1, apartmentDto3).collect(Collectors.toList());
-        apartmentListByCountPlaces = Stream.of(apartment1, apartment3).collect(Collectors.toList());
         apartmentListDtoByCountPlaces = Stream.of(apartmentDto1, apartmentDto3).collect(Collectors.toList());
-        apartmentListByCountPlacesAndRoom = Stream.of(apartment1, apartment3).collect(Collectors.toList());
         apartmentListDtoByCountPlacesAndRoom = Stream.of(apartmentDto1, apartmentDto3).collect(Collectors.toList());
 
         setupApartment(apartment1, 1, 140, 2, 5);
@@ -82,21 +73,21 @@ public class ApartmentServiceImplTest {
         setupApartmentDto(apartmentDto1, 1, 140, 2, 5);
         setupApartmentDto(apartmentDto2, 2, 100, 3, 6);
         setupApartmentDto(apartmentDto3, 3, 200, 2, 5);
+
+        setupConverterApartment(apartment1, apartmentDto1);
+        setupConverterApartment(apartment2, apartmentDto2);
+        setupConverterApartment(apartment3, apartmentDto3);
     }
 
     @Test
     public void getAllTest() {
         when(apartmentRepository.findAll()).thenReturn(apartmentList);
-        setupConverterApartment(apartment1, apartmentDto1);
-        setupConverterApartment(apartment2, apartmentDto2);
-        setupConverterApartment(apartment3, apartmentDto3);
         assertEquals(apartmentDtoList, apartmentService.getAll());
     }
 
     @Test
     public void getByIdTest() {
         when(apartmentRepository.findById(1)).thenReturn(Optional.of(apartment1));
-        setupConverterApartment(apartment1, apartmentDto1);
         assertEquals(apartmentDto1, apartmentService.getById(1));
     }
 
@@ -107,10 +98,6 @@ public class ApartmentServiceImplTest {
                 .filter(apartment -> apartment.getPrice() <= price)
                 .collect(Collectors.toList());
         when(apartmentRepository.getCheaperApartments(price)).thenReturn(apartmentListCheaper);
-
-        setupConverterApartment(apartment1, apartmentDto1);
-        setupConverterApartment(apartment2, apartmentDto2);
-
         assertEquals(apartmentListDtoCheaper, apartmentService.getCheaperApartments(price));
     }
 
@@ -121,10 +108,12 @@ public class ApartmentServiceImplTest {
 
     @Test
     public void getApartmentsByCountRoomsTest() {
-        when(apartmentRepository.getApartmentsByCountRooms(2)).thenReturn(apartmentListByCountRoom);
-        setupConverterApartment(apartment1, apartmentDto1);
-        setupConverterApartment(apartment3, apartmentDto3);
-        assertEquals(apartmentListDtoByCountRoom, apartmentService.getApartmentsByCountRooms(2));
+        int countRoom = 2;
+        List<Apartment> apartmentListByCountRoom = apartmentList.stream()
+                .filter(apartment -> apartment.getCountRooms() == countRoom)
+                .collect(Collectors.toList());
+        when(apartmentRepository.getApartmentsByCountRooms(countRoom)).thenReturn(apartmentListByCountRoom);
+        assertEquals(apartmentListDtoByCountRoom, apartmentService.getApartmentsByCountRooms(countRoom));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -134,10 +123,12 @@ public class ApartmentServiceImplTest {
 
     @Test
     public void getApartmentsByCountPlacesTest() {
-        when(apartmentRepository.getApartmentsByCountPlaces(5)).thenReturn(apartmentListByCountPlaces);
-        setupConverterApartment(apartment1, apartmentDto1);
-        setupConverterApartment(apartment3, apartmentDto3);
-        assertEquals(apartmentListDtoByCountPlaces, apartmentService.getApartmentsByCountPlaces(5));
+        int countPlaces = 5;
+        List<Apartment> apartmentListByCountPlaces = apartmentList.stream()
+                .filter(apartment -> apartment.getCountPlaces() == countPlaces)
+                .collect(Collectors.toList());
+        when(apartmentRepository.getApartmentsByCountPlaces(countPlaces)).thenReturn(apartmentListByCountPlaces);
+        assertEquals(apartmentListDtoByCountPlaces, apartmentService.getApartmentsByCountPlaces(countPlaces));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -147,11 +138,15 @@ public class ApartmentServiceImplTest {
 
     @Test
     public void getApartmentsByCountPlacesAndCountRoomsTest() {
-        when(apartmentRepository.getApartmentsByCountPlacesAndCountRooms(5, 2))
+        int countPlaces = 5;
+        int countRoom = 2;
+        List<Apartment> apartmentListByCountPlacesAndRoom = apartmentList.stream()
+                .filter(apartment -> apartment.getCountPlaces() == countPlaces  && apartment.getCountRooms() == countRoom)
+                .collect(Collectors.toList());
+        when(apartmentRepository.getApartmentsByCountPlacesAndCountRooms(countPlaces, countRoom))
                 .thenReturn(apartmentListByCountPlacesAndRoom);
-        setupConverterApartment(apartment1, apartmentDto1);
-        setupConverterApartment(apartment3, apartmentDto3);
-        assertEquals(apartmentListDtoByCountPlaces, apartmentService.getApartmentsByCountPlacesAndCountRooms(5, 2));
+        assertEquals(apartmentListDtoByCountPlaces, apartmentService
+                .getApartmentsByCountPlacesAndCountRooms(countPlaces, countRoom));
     }
 
     @Test(expected = IllegalArgumentException.class)

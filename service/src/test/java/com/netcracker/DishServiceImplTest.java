@@ -2,6 +2,7 @@ package com.netcracker;
 
 import com.netcracker.converter.DishConverter;
 import com.netcracker.dto.DishDto;
+import com.netcracker.entity.Apartment;
 import com.netcracker.entity.Dish;
 import com.netcracker.repository.DishRepository;
 import com.netcracker.serviceimpl.DishServiceImpl;
@@ -43,7 +44,6 @@ public class DishServiceImplTest {
 
     private List<Dish> dishList;
     private List<DishDto> dishDtoList;
-    private List<Dish> dishCheaperList;
     private List<DishDto> dishDtoCheaperList;
 
     @InjectMocks
@@ -54,8 +54,6 @@ public class DishServiceImplTest {
         MockitoAnnotations.initMocks(this);
         dishList = Stream.of(dish1, dish2, dish3).collect(Collectors.toList());
         dishDtoList = Stream.of(dishDto1, dishDto2, dishDto3).collect(Collectors.toList());
-        dishCheaperList = Stream.of(dish1, dish3).collect(Collectors.toList());
-        dishDtoCheaperList = Stream.of(dishDto1, dishDto3).collect(Collectors.toList());
 
         setupDish(dish1, 1, 10);
         setupDish(dish2,2,12);
@@ -64,29 +62,31 @@ public class DishServiceImplTest {
         setupDishDto(dishDto1, 1, 10);
         setupDishDto(dishDto2,2,12);
         setupDishDto(dishDto3,3,9);
+
+        setupConverterDish(dish1, dishDto1);
+        setupConverterDish(dish2, dishDto2);
+        setupConverterDish(dish3, dishDto3);
     }
 
     @Test
     public void getAllTest() {
         when(dishRepository.findAll()).thenReturn(dishList);
-        setupConverterDish(dish1, dishDto1);
-        setupConverterDish(dish2, dishDto2);
-        setupConverterDish(dish3, dishDto3);
         assertEquals(dishDtoList, dishService.getAll());
     }
 
     @Test
     public void getByIdTest() {
         when(dishRepository.findById(1)).thenReturn(Optional.of(dish1));
-        setupConverterDish(dish1, dishDto1);
         assertEquals(dishDto1, dishService.getById(1));
     }
 
     @Test
     public void getCheaperDishTest() {
-        when(dishRepository.getCheaperDish(11)).thenReturn(dishCheaperList);
-        setupConverterDish(dish1, dishDto1);
-        setupConverterDish(dish3, dishDto3);
+        int price = 11;
+        List<Dish> dishCheaperList = dishList.stream()
+                .filter(dish -> dish.getPrice() <= price)
+                .collect(Collectors.toList());
+        when(dishRepository.getCheaperDish(price)).thenReturn(dishCheaperList);
         assertEquals(dishDtoCheaperList, dishService.getCheaperDish(11));
     }
 
