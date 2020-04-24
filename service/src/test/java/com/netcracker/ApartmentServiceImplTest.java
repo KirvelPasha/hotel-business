@@ -152,7 +152,7 @@ public class ApartmentServiceImplTest {
         apartmentListDtoByCountPlacesAndRoom = Stream.of(apartmentDto1, apartmentDto3).collect(Collectors.toList());
         when(apartmentRepository.getApartmentsByCountPlacesAndCountRooms(countPlaces, countRoom))
                 .thenReturn(apartmentListByCountPlacesAndRoom);
-        assertEquals(apartmentListDtoByCountPlacesAndRoom, apartmentService
+        assertEquals(apartmentListDtoByCountPlacesAndRoom  , apartmentService
                 .getApartmentsByCountPlacesAndCountRooms(countPlaces, countRoom));
     }
 
