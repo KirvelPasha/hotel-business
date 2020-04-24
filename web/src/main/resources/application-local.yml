@@ -3,8 +3,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    url: jdbc:postgresql://localhost:5431/netcracker_hotel
-    password: postgres
+    url: jdbc:postgresql://localhost:5432/hotel_bussines
+    password: *
   # JPA properties
   jpa:
     hibernate:
