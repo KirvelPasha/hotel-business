@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -31,6 +34,8 @@ public class ApartmentServiceImplTest {
     private Apartment apartment2;
     @Mock
     private Apartment apartment3;
+    @Mock
+    private Apartment apartmentForSave;
 
     @Mock
     private ApartmentDto apartmentDto1;
@@ -38,6 +43,8 @@ public class ApartmentServiceImplTest {
     private ApartmentDto apartmentDto2;
     @Mock
     private ApartmentDto apartmentDto3;
+    @Mock
+    private ApartmentDto apartmentDtoForSave;
 
     @Mock
     private ApartmentConverter apartmentConverter;
@@ -65,10 +72,12 @@ public class ApartmentServiceImplTest {
         setupApartment(apartment1, 1, 140, 2, 5);
         setupApartment(apartment2, 2, 100, 3, 6);
         setupApartment(apartment3, 3, 200, 2, 5);
+        setupApartment(apartmentForSave, 4, 200, 2, 5);
 
         setupApartmentDto(apartmentDto1, 1, 140, 2, 5);
         setupApartmentDto(apartmentDto2, 2, 100, 3, 6);
         setupApartmentDto(apartmentDto3, 3, 200, 2, 5);
+        setupApartmentDto(apartmentDtoForSave, null, 200, 2, 5);
 
         setupConverterApartment(apartment1, apartmentDto1);
         setupConverterApartment(apartment2, apartmentDto2);
@@ -159,6 +168,20 @@ public class ApartmentServiceImplTest {
     @Test(expected = IllegalArgumentException.class)
     public void getApartmentsByCountPlacesAndCountRoomTestException() {
         apartmentService.getApartmentsByCountPlacesAndCountRooms(-5, -6);
+    }
+
+    @Test
+    public void saveTest() {
+        when(apartmentRepository.save(apartmentForSave)).thenReturn(apartmentForSave);
+    //To Do
+    }
+
+    @Test
+    public void deleteTest() {
+        int id = 1;
+        apartmentService.delete(id);
+
+        verify(apartmentRepository).deleteById(eq(id));
     }
 
     private void setupApartment(Apartment apartment, Integer id, int price, int countRoom, int countPlaces) {
