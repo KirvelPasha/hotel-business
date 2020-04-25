@@ -1,9 +1,7 @@
 package com.netcracker;
 
 import com.netcracker.converter.PersonRoleConverter;
-import com.netcracker.dto.ApartmentTypeDto;
 import com.netcracker.dto.PersonRoleDto;
-import com.netcracker.entity.ApartmentTypes;
 import com.netcracker.entity.PersonRole;
 import com.netcracker.repository.PersonRoleRepository;
 import com.netcracker.serviceimpl.PersonRoleServiceImpl;
@@ -62,13 +60,13 @@ public class PersonRoleServiceImplTest {
     }
 
     @Test
-    public void getAllTest(){
+    public void getAllTest() {
         when(personRoleRepository.findAll()).thenReturn(personRoleList);
         assertEquals(personRoleList, personRoleService.getAll());
     }
 
     @Test
-    public void getByIdTest(){
+    public void getByIdTest() {
         int id = 1;
         when(personRoleRepository.findById(id)).thenReturn(Optional.of(personRole1));
         assertEquals(personRole1, personRoleService.getById(id));
@@ -82,7 +80,7 @@ public class PersonRoleServiceImplTest {
     }
 
     @Test
-    public void getByRoleTest(){
+    public void getByRoleTest() {
         when(personRoleRepository.getByRole(ROLE_FIRST_PERSON)).thenReturn(personRole1);
         assertEquals(personRole1, personRoleService.getByRole(ROLE_FIRST_PERSON));
     }

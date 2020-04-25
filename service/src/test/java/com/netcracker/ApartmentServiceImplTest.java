@@ -4,14 +4,12 @@ import com.netcracker.converter.ApartmentConverter;
 import com.netcracker.dto.ApartmentDto;
 import com.netcracker.entity.Apartment;
 import com.netcracker.repository.ApartmentRepository;
-import com.netcracker.service.ApartmentService;
 import com.netcracker.serviceimpl.ApartmentServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -20,10 +18,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class ApartmentServiceImplTest {
@@ -101,7 +97,8 @@ public class ApartmentServiceImplTest {
     public void getByIdTestException() {
         int id = 120;
         when(apartmentRepository.findById(id)).thenReturn(Optional.empty());
-        apartmentService.getById(id); }
+        apartmentService.getById(id);
+    }
 
     @Test
     public void getCheaperApartmentsTest() {
@@ -143,6 +140,7 @@ public class ApartmentServiceImplTest {
                 .collect(Collectors.toList());
         apartmentListDtoByCountPlaces = Stream.of(apartmentDto1, apartmentDto3).collect(Collectors.toList());
         when(apartmentRepository.getApartmentsByCountPlaces(countPlaces)).thenReturn(apartmentListByCountPlaces);
+
         assertEquals(apartmentListDtoByCountPlaces, apartmentService.getApartmentsByCountPlaces(countPlaces));
     }
 
@@ -156,12 +154,14 @@ public class ApartmentServiceImplTest {
         int countPlaces = 5;
         int countRoom = 2;
         List<Apartment> apartmentListByCountPlacesAndRoom = apartmentList.stream()
-                .filter(apartment -> apartment.getCountPlaces() == countPlaces  && apartment.getCountRooms() == countRoom)
+                .filter(apartment -> apartment.getCountPlaces() == countPlaces && apartment.getCountRooms() == countRoom)
                 .collect(Collectors.toList());
         apartmentListDtoByCountPlacesAndRoom = Stream.of(apartmentDto1, apartmentDto3).collect(Collectors.toList());
+
         when(apartmentRepository.getApartmentsByCountPlacesAndCountRooms(countPlaces, countRoom))
                 .thenReturn(apartmentListByCountPlacesAndRoom);
-        assertEquals(apartmentListDtoByCountPlacesAndRoom  , apartmentService
+
+        assertEquals(apartmentListDtoByCountPlacesAndRoom, apartmentService
                 .getApartmentsByCountPlacesAndCountRooms(countPlaces, countRoom));
     }
 
@@ -173,7 +173,7 @@ public class ApartmentServiceImplTest {
     @Test
     public void saveTest() {
         when(apartmentRepository.save(apartmentForSave)).thenReturn(apartmentForSave);
-    //To Do
+        //To Do
     }
 
     @Test
@@ -182,6 +182,14 @@ public class ApartmentServiceImplTest {
         apartmentService.delete(id);
 
         verify(apartmentRepository).deleteById(eq(id));
+    }
+
+    @Test
+    public void deleteById(){
+        when(apartmentRepository.findById(1)).thenReturn(Optional.of(apartment1));
+        apartmentService.delete(1);
+
+        verify(apartmentRepository, times(1)).deleteById(1);
     }
 
     private void setupApartment(Apartment apartment, Integer id, int price, int countRoom, int countPlaces) {

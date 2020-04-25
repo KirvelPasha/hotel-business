@@ -1,12 +1,8 @@
 package com.netcracker;
 
 import com.netcracker.converter.BookingConverter;
-import com.netcracker.dto.ApartmentTypeDto;
 import com.netcracker.dto.BookingDto;
-import com.netcracker.entity.Apartment;
-import com.netcracker.entity.ApartmentTypes;
 import com.netcracker.entity.Booking;
-import com.netcracker.entity.Person;
 import com.netcracker.repository.BookingRepository;
 import com.netcracker.serviceimpl.BookingServiceImpl;
 import org.junit.Before;
@@ -15,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 

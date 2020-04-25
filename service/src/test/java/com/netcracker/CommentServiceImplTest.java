@@ -2,19 +2,14 @@ package com.netcracker;
 
 import com.netcracker.converter.CommentConverter;
 import com.netcracker.dto.CommentDto;
-import com.netcracker.dto.DishOrderDto;
 import com.netcracker.entity.Comments;
-import com.netcracker.entity.DishOrder;
 import com.netcracker.repository.CommentRepository;
 import com.netcracker.serviceimpl.CommentServiceImpl;
-import org.apache.catalina.LifecycleState;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import javax.xml.stream.events.Comment;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +17,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
 public class CommentServiceImplTest {
 
@@ -75,6 +71,7 @@ public class CommentServiceImplTest {
     public void getByIdTest() {
         int id = 1;
         when(commentRepository.findById(id)).thenReturn(Optional.of(comment1));
+
         assertEquals(commentDto1, commentService.getById(id));
     }
 

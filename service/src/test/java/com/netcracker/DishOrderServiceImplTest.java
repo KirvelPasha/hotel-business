@@ -1,9 +1,7 @@
 package com.netcracker;
 
 import com.netcracker.converter.DishOrderConverter;
-import com.netcracker.dto.ApartmentDto;
 import com.netcracker.dto.DishOrderDto;
-import com.netcracker.entity.Apartment;
 import com.netcracker.entity.DishOrder;
 import com.netcracker.repository.DishOrderRepository;
 import com.netcracker.serviceimpl.DishOrderServiceImpl;
@@ -19,7 +17,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
 public class DishOrderServiceImplTest {
 

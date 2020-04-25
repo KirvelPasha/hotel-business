@@ -69,6 +69,7 @@ public class ApartmentTypeServiceImplTest {
     public void getByIdTest() {
         int id = 1;
         when(apartmentTypeRepository.findById(id)).thenReturn(Optional.of(apartmentTypes1));
+
         assertEquals(apartmentTypeDto1, apartmentTypeService.getById(id));
     }
 
@@ -76,7 +77,8 @@ public class ApartmentTypeServiceImplTest {
     public void getByIdTestException() {
         int id = 120;
         when(apartmentTypeRepository.findById(id)).thenReturn(Optional.empty());
-        apartmentTypeService.getById(id); }
+        apartmentTypeService.getById(id);
+    }
 
     @Test
     public void saveTest() {
@@ -85,11 +87,20 @@ public class ApartmentTypeServiceImplTest {
     }
 
     @Test
-    public void deleteByIdTest() {
+    public void deleteTest() {
         int id = 1;
-        when(apartmentTypeRepository.findById(id)).thenReturn(Optional.of(apartmentTypes1));
+        when(apartmentTypeRepository.findById(1)).thenReturn(Optional.of(apartmentTypes1));
         apartmentTypeService.deleteById(id);
-        verify(apartmentTypeRepository, times(1)).deleteById(id);
+
+        verify(apartmentTypeRepository).deleteById(eq(id));
+    }
+
+    @Test
+    public void deleteById(){
+        when(apartmentTypeRepository.findById(1)).thenReturn(Optional.of(apartmentTypes1));
+        apartmentTypeService.deleteById(1);
+
+        verify(apartmentTypeRepository, times(1)).deleteById(1);
     }
 
 

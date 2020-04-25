@@ -1,9 +1,7 @@
 package com.netcracker;
 
 import com.netcracker.converter.PersonConverter;
-import com.netcracker.dto.ApartmentTypeDto;
 import com.netcracker.dto.PersonDto;
-import com.netcracker.entity.ApartmentTypes;
 import com.netcracker.entity.Person;
 import com.netcracker.exceptions.PersonNotFoundException;
 import com.netcracker.repository.PersonRepository;
@@ -14,11 +12,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
 public class PersonServiceImplTest {
 
@@ -45,33 +44,53 @@ public class PersonServiceImplTest {
         MockitoAnnotations.initMocks(this);
 
         setupPerson(person, 1, LOGIN);
-        setupPersonDto(personDto,1, LOGIN);
-      }
+        setupPersonDto(personDto, 1, LOGIN);
+    }
 
-      @Test
-      public void getById() {
+    @Test
+    public void getById() {
         when(personRepository.findById(1)).thenReturn(Optional.of(person));
         setupConverterPerson(person, personDto);
         assertEquals(personDto, personService.getById(1));
-      }
+    }
 
     @Test(expected = PersonNotFoundException.class)
     public void getByIdTestException() {
         int id = 120;
         when(personRepository.findById(id)).thenReturn(Optional.empty());
-        personService.getById(id); }
+        personService.getById(id);
+    }
 
     @Test
-      public void getByLogin() {
+    public void getByLogin() {
         when(personRepository.findByLogin(LOGIN)).thenReturn(Optional.of(person));
-          assertEquals(person, personService.findByLogin(LOGIN));
+        assertEquals(person, personService.findByLogin(LOGIN));
     }
 
     @Test(expected = PersonNotFoundException.class)
     public void getByLoginTestException() {
         String login = "one";
         when(personRepository.findByLogin(login)).thenReturn(Optional.empty());
-        personService.findByLogin(login); }
+        personService.findByLogin(login);
+    }
+
+    @Test
+    public void deleteById(){
+        int id = 1;
+        when(personRepository.findById(id)).thenReturn(Optional.of(person));
+        personService.deleteById(id);
+
+        verify(personRepository, times(1)).deleteById(1);
+    }
+
+    @Test
+    public void deleteTest() {
+        int id = 1;
+        when(personRepository.findById(id)).thenReturn(Optional.of(person));
+        personService.deleteById(id);
+
+        verify(personRepository).deleteById(eq(id));
+    }
 
 
     private void setupPerson(Person person, Integer id, String login) {

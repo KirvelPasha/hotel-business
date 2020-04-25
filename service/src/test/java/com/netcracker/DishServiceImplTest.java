@@ -2,7 +2,6 @@ package com.netcracker;
 
 import com.netcracker.converter.DishConverter;
 import com.netcracker.dto.DishDto;
-import com.netcracker.entity.Apartment;
 import com.netcracker.entity.Dish;
 import com.netcracker.repository.DishRepository;
 import com.netcracker.serviceimpl.DishServiceImpl;
@@ -56,12 +55,12 @@ public class DishServiceImplTest {
         dishDtoList = Stream.of(dishDto1, dishDto2, dishDto3).collect(Collectors.toList());
 
         setupDish(dish1, 1, 10);
-        setupDish(dish2,2,12);
-        setupDish(dish3, 3,9);
+        setupDish(dish2, 2, 12);
+        setupDish(dish3, 3, 9);
 
         setupDishDto(dishDto1, 1, 10);
-        setupDishDto(dishDto2,2,12);
-        setupDishDto(dishDto3,3,9);
+        setupDishDto(dishDto2, 2, 12);
+        setupDishDto(dishDto3, 3, 9);
 
         setupConverterDish(dish1, dishDto1);
         setupConverterDish(dish2, dishDto2);
@@ -84,7 +83,8 @@ public class DishServiceImplTest {
     public void getByIdTestException() {
         int id = 120;
         when(dishRepository.findById(id)).thenReturn(Optional.empty());
-        dishService.getById(id); }
+        dishService.getById(id);
+    }
 
     @Test
     public void getCheaperDishTest() {

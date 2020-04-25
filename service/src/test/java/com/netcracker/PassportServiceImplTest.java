@@ -1,14 +1,11 @@
 package com.netcracker;
 
 import com.netcracker.converter.PassportConverter;
-import com.netcracker.dto.ApartmentTypeDto;
 import com.netcracker.dto.PassportDto;
-import com.netcracker.entity.ApartmentTypes;
 import com.netcracker.entity.Passport;
 import com.netcracker.repository.PassportRepository;
 import com.netcracker.serviceimpl.PassportServiceImpl;
 import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -17,7 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 public class PassportServiceImplTest {
