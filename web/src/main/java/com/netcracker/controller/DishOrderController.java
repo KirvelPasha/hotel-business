@@ -28,14 +28,14 @@ public class DishOrderController {
     @ApiOperation(value = "Creates dish order")
     @PostMapping()
     ResponseEntity<DishOrderDto> save(@RequestBody DishOrderDto dishOrderDto) {
-        log.info("save , DishOrderController");
+        //log.info("save , DishOrderController");
         return new ResponseEntity<>(dishOrderService.save(dishOrderDto), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Gets all  dish order by person's login")
     @GetMapping()
     List<DishOrderDto> getByPerson_Login() {
-        log.info("getByPerson_Login , DishOrderController ");
+        //log.info("getByPerson_Login , DishOrderController ");
         return dishOrderService.getByPerson_Login();
 
     }
@@ -43,7 +43,7 @@ public class DishOrderController {
     @ApiOperation(value = "Deletes dish order")
     @DeleteMapping()
     ResponseEntity<Void> deleteById(@RequestParam("id") Integer id) {
-        log.info("deleteById , DishOrderController");
+       // log.info("deleteById , DishOrderController");
         dishOrderService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

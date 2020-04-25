@@ -65,6 +65,7 @@ public class DishOrderServiceImplTest {
     public void getByIdTest() {
         int id = 1;
         when(dishOrderRepository.findById(id)).thenReturn(Optional.of(dishOrder1));
+
         assertEquals(dishOrderDto1, dishOrderService.getById(id));
     }
 

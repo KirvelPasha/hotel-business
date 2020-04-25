@@ -51,6 +51,7 @@ public class PersonServiceImplTest {
     public void getById() {
         when(personRepository.findById(1)).thenReturn(Optional.of(person));
         setupConverterPerson(person, personDto);
+
         assertEquals(personDto, personService.getById(1));
     }
 
@@ -80,18 +81,9 @@ public class PersonServiceImplTest {
         when(personRepository.findById(id)).thenReturn(Optional.of(person));
         personService.deleteById(id);
 
-        verify(personRepository, times(1)).deleteById(1);
-    }
-
-    @Test
-    public void deleteTest() {
-        int id = 1;
-        when(personRepository.findById(id)).thenReturn(Optional.of(person));
-        personService.deleteById(id);
-
         verify(personRepository).deleteById(eq(id));
+        verify(personRepository, times(1)).deleteById(id);
     }
-
 
     private void setupPerson(Person person, Integer id, String login) {
         when(person.getId()).thenReturn(id);

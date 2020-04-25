@@ -107,7 +107,9 @@ public class ApartmentServiceImplTest {
                 .filter(apartment -> apartment.getPrice() <= price)
                 .collect(Collectors.toList());
         apartmentListDtoCheaper = Stream.of(apartmentDto1, apartmentDto2).collect(Collectors.toList());
+
         when(apartmentRepository.getCheaperApartments(price)).thenReturn(apartmentListCheaper);
+
         assertEquals(apartmentListDtoCheaper, apartmentService.getCheaperApartments(price));
     }
 
@@ -123,7 +125,9 @@ public class ApartmentServiceImplTest {
                 .filter(apartment -> apartment.getCountRooms() == countRoom)
                 .collect(Collectors.toList());
         apartmentListDtoByCountRoom = Stream.of(apartmentDto1, apartmentDto3).collect(Collectors.toList());
+
         when(apartmentRepository.getApartmentsByCountRooms(countRoom)).thenReturn(apartmentListByCountRoom);
+
         assertEquals(apartmentListDtoByCountRoom, apartmentService.getApartmentsByCountRooms(countRoom));
     }
 
@@ -139,6 +143,7 @@ public class ApartmentServiceImplTest {
                 .filter(apartment -> apartment.getCountPlaces() == countPlaces)
                 .collect(Collectors.toList());
         apartmentListDtoByCountPlaces = Stream.of(apartmentDto1, apartmentDto3).collect(Collectors.toList());
+
         when(apartmentRepository.getApartmentsByCountPlaces(countPlaces)).thenReturn(apartmentListByCountPlaces);
 
         assertEquals(apartmentListDtoByCountPlaces, apartmentService.getApartmentsByCountPlaces(countPlaces));

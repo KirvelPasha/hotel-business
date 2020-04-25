@@ -58,6 +58,7 @@ public class BookingServiceImplTest {
     public void getByIdTest() {
         int id = 1;
         when(bookingRepository.findById(id)).thenReturn(Optional.of(booking1));
+
         assertEquals(bookingDto1, bookingService.getById(id));
     }
 

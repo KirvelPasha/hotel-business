@@ -93,7 +93,9 @@ public class DishServiceImplTest {
                 .filter(dish -> dish.getPrice() <= price)
                 .collect(Collectors.toList());
         dishDtoCheaperList = Stream.of(dishDto1, dishDto3).collect(Collectors.toList());
+
         when(dishRepository.getCheaperDish(price)).thenReturn(dishCheaperList);
+
         assertEquals(dishDtoCheaperList, dishService.getCheaperDish(11));
     }
 
