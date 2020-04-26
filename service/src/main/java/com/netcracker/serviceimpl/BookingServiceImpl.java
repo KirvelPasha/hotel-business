@@ -3,6 +3,7 @@ package com.netcracker.serviceimpl;
 
 import com.netcracker.converter.ApartmentConverter;
 import com.netcracker.converter.BookingConverter;
+import com.netcracker.converter.PersonConverter;
 import com.netcracker.dto.BookingDto;
 import com.netcracker.entity.Apartment;
 import com.netcracker.entity.Booking;
@@ -30,11 +31,13 @@ public class BookingServiceImpl implements BookingService {
     private final BookingConverter bookingConverter;
     private final Validate validate;
     private final ApartmentConverter apartmentConverter;
+    private final PersonConverter personConverter;
 
     @Autowired
     public BookingServiceImpl(BookingRepository bookingRepository, PersonService personService,
                               ApartmentService apartmentService, BookingConverter bookingConverter,
-                              Validate validate, ApartmentConverter apartmentConverter) {
+                              Validate validate, ApartmentConverter apartmentConverter,
+                              PersonConverter personConverter) {
 
         this.bookingRepository = bookingRepository;
         this.personService = personService;
@@ -42,13 +45,14 @@ public class BookingServiceImpl implements BookingService {
         this.bookingConverter = bookingConverter;
         this.validate = validate;
         this.apartmentConverter = apartmentConverter;
+        this.personConverter = personConverter;
     }
 
     @Override
     public BookingDto save(BookingDto bookingDto) {
         if (validate.dates(bookingDto.getStartDate(), bookingDto.getEndDate())) {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            Person person = personService.findByLogin(user.getUsername());
+            Person person = personConverter.converter(personService.findByLogin(user.getUsername()));
             Apartment apartment = apartmentConverter.converter(
                     apartmentService.getById(bookingDto.getApartmentId()));
             Booking booking = bookingConverter.converter(bookingDto);

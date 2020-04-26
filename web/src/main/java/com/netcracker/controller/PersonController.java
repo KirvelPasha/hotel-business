@@ -27,14 +27,21 @@ public class PersonController {
 
     @ApiOperation(value = "Gets person by id")
     @GetMapping()
-    ResponseEntity<PersonDto> getById(@RequestParam Integer id) {
+    public ResponseEntity<PersonDto> getById(@RequestParam Integer id) {
        // log.info("getById , PersonController");
         return new ResponseEntity<>(personService.getById(id), HttpStatus.OK);
     }
 
+   /* @ApiOperation(value = "Gets person by login")
+    @GetMapping()
+    public ResponseEntity<PersonDto> getByLogin(@RequestParam String login) {
+        // log.info("getById , PersonController");
+        return new ResponseEntity<>(personService.findByLogin(login), HttpStatus.OK);
+    }*/
+
     @ApiOperation(value = "Creates person")
     @PostMapping()
-    ResponseEntity<Integer> savePerson(@Validated @RequestBody PersonDto personDto) {
+    public ResponseEntity<Integer> savePerson(@Validated @RequestBody PersonDto personDto) {
        // log.info("savePerson , PersonController");
         return new ResponseEntity<>(personService.save(personDto), HttpStatus.CREATED);
     }

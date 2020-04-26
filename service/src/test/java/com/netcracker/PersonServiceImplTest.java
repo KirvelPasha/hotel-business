@@ -49,10 +49,11 @@ public class PersonServiceImplTest {
 
     @Test
     public void getById() {
-        when(personRepository.findById(1)).thenReturn(Optional.of(person));
+        int id = 1;
+        when(personRepository.findById(id)).thenReturn(Optional.of(person));
         setupConverterPerson(person, personDto);
 
-        assertEquals(personDto, personService.getById(1));
+        assertEquals(personDto, personService.getById(id));
     }
 
     @Test(expected = PersonNotFoundException.class)
@@ -98,5 +99,4 @@ public class PersonServiceImplTest {
     private void setupConverterPerson(Person person, PersonDto personDto) {
         when(personConverter.converter(person)).thenReturn(personDto);
     }
-
 }

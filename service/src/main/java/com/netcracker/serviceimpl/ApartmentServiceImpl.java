@@ -135,6 +135,7 @@ public class ApartmentServiceImpl implements ApartmentService {
     @CacheEvict(value = "apartment")
     public void delete(Integer id) {
         //log.info("delete apartment by id: {}", id);
+        this.getById(id);
         apartmentRepository.deleteById(id);
     }
 

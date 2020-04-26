@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface PersonRoleService {
 
-    PersonRole getById(Integer id);
+    PersonRoleDto getById(Integer id);
 
-    List<PersonRole> getAll();
+    List<PersonRoleDto> getAll();
 
-    PersonRole getByRole(String role);
+    PersonRoleDto getByRole(String role);
 
     PersonRoleDto save(PersonRoleDto personRoleDto);
 }

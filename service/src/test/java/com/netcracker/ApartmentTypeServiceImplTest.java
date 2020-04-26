@@ -93,16 +93,8 @@ public class ApartmentTypeServiceImplTest {
         apartmentTypeService.deleteById(id);
 
         verify(apartmentTypeRepository).deleteById(eq(id));
-    }
-
-    @Test
-    public void deleteById(){
-        when(apartmentTypeRepository.findById(1)).thenReturn(Optional.of(apartmentTypes1));
-        apartmentTypeService.deleteById(1);
-
         verify(apartmentTypeRepository, times(1)).deleteById(1);
     }
-
 
     private void setupApartmentType(ApartmentTypes apartmentTypes, Integer id, String type) {
         when(apartmentTypes.getId()).thenReturn(id);

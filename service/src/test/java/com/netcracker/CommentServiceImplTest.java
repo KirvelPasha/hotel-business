@@ -93,6 +93,4 @@ public class CommentServiceImplTest {
     private void setupConverterComments(Comments comments, CommentDto commentDto) {
         when(commentConverter.converter(comments)).thenReturn(commentDto);
     }
-
-
 }

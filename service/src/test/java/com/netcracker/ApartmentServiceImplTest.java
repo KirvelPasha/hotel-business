@@ -187,13 +187,6 @@ public class ApartmentServiceImplTest {
         apartmentService.delete(id);
 
         verify(apartmentRepository).deleteById(eq(id));
-    }
-
-    @Test
-    public void deleteById(){
-        when(apartmentRepository.findById(1)).thenReturn(Optional.of(apartment1));
-        apartmentService.delete(1);
-
         verify(apartmentRepository, times(1)).deleteById(1);
     }
 

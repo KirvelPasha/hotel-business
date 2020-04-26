@@ -31,21 +31,21 @@ public class ApartmentController {
 
     @ApiOperation(value = "Gets apartment  by id")
     @GetMapping(value = "/")
-    ResponseEntity<ApartmentDto> getById(@RequestParam("id") Integer id) {
+    public ResponseEntity<ApartmentDto> getById(@RequestParam("id") Integer id) {
         //log.info("getById , ApartmentController ");
         return new ResponseEntity<>(apartmentService.getById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Gets all apartments")
     @GetMapping()
-    ResponseEntity<List<ApartmentDto>> getAll() {
+    public ResponseEntity<List<ApartmentDto>> getAll() {
        // log.info("getAll , ApartmentController");
         return new ResponseEntity<>(apartmentService.getAll(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Gets apartment by count places and rooms")
     @GetMapping(value = "/filterbycountroomsandcountplaces")
-    ResponseEntity<List<ApartmentDto>> getApartmentsByCountPlacesAndCountRooms
+    public ResponseEntity<List<ApartmentDto>> getApartmentsByCountPlacesAndCountRooms
             (@RequestParam(value = "countPlaces") int countPlaces,
              @RequestParam(value = "countRooms") int countRooms) {
 
@@ -58,7 +58,7 @@ public class ApartmentController {
     @ApiOperation(value = "Gets all cheaper apartments")
     @GetMapping(value = "/cheaperApartments")
     @ResponseBody
-    ResponseEntity<List<ApartmentDto>> getCheaperApartments(@RequestBody@RequestParam("price") int price) {
+    public ResponseEntity<List<ApartmentDto>> getCheaperApartments(@RequestBody@RequestParam("price") int price) {
        // log.info("getCheaperApartments , ApartmentController ");
         return new ResponseEntity<>(apartmentService.getCheaperApartments(price),
                 HttpStatus.OK);
@@ -68,7 +68,7 @@ public class ApartmentController {
 
     @ApiOperation(value = "Gets apartment by count  rooms")
     @GetMapping(value = "/filterbycountrooms")
-    ResponseEntity<List<ApartmentDto>> getByCountRooms(@RequestParam("countRooms") int countRooms) {
+    public ResponseEntity<List<ApartmentDto>> getByCountRooms(@RequestParam("countRooms") int countRooms) {
        // log.info("getByCountRooms , ApartmentController  ");
         return new ResponseEntity<>(apartmentService.getApartmentsByCountRooms(countRooms),
                 HttpStatus.OK);
@@ -78,7 +78,7 @@ public class ApartmentController {
 
     @ApiOperation(value = "Gets apartment by count places")
     @GetMapping(value = "/filterbycountplaces")
-    ResponseEntity<List<ApartmentDto>> getApartmentsByCountPlaces(
+    public ResponseEntity<List<ApartmentDto>> getApartmentsByCountPlaces(
             @RequestParam("countPlaces") int countPlaces) {
 
        // log.info("getApartmentsByCountPlaces , ApartmentController");
@@ -88,7 +88,7 @@ public class ApartmentController {
 
     @ApiOperation(value = "Creates apartment")
     @PostMapping()
-    ResponseEntity<ApartmentDto> save(@Validated @RequestBody ApartmentDto apartmentDto) {
+    public ResponseEntity<ApartmentDto> save(@Validated @RequestBody ApartmentDto apartmentDto) {
         //log.info("save , ApartmentController");
         return new ResponseEntity<>(apartmentService.save(apartmentDto), HttpStatus.CREATED);
     }
@@ -96,7 +96,7 @@ public class ApartmentController {
 
     @ApiOperation(value = "Gets apartment by apartment type id")
     @GetMapping(value = "/filterbytypeid")
-    ResponseEntity<List<ApartmentDto>> getApartmentsByApartmentTypes_Id(@RequestParam("typeId") Integer typeId) {
+    public ResponseEntity<List<ApartmentDto>> getApartmentsByApartmentTypes_Id(@RequestParam("typeId") Integer typeId) {
        // log.info("getApartmentsByApartmentTypesId,ApartmentController");
         return new ResponseEntity<>(apartmentService.getApartmentsByApartmentTypesId(typeId),
                 HttpStatus.OK);

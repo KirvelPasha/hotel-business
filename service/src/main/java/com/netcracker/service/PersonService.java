@@ -13,7 +13,7 @@ public interface PersonService {
 
     PersonDto update(PersonUpdate personUpdate);
 
-    Person findByLogin(String login);
+    PersonDto findByLogin(String login);
 
     void deleteById(Integer id);
 

@@ -31,14 +31,14 @@ public class CommentController {
 
     @ApiOperation(value = "Creates comment")
     @PostMapping()
-    ResponseEntity<CommentDto> save(@RequestBody @Validated CommentDto commentDto) {
+    public ResponseEntity<CommentDto> save(@RequestBody @Validated CommentDto commentDto) {
        // log.info("save , CommentController");
         return new ResponseEntity<>(commentService.save(commentDto), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Deletes comment")
     @DeleteMapping()
-    ResponseEntity<Void> deleteById(@RequestParam Integer id) {
+    public ResponseEntity<Void> deleteById(@RequestParam Integer id) {
         //log.info("deleteById , CommentController");
         commentService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -47,7 +47,7 @@ public class CommentController {
 
     @ApiOperation(value = "Gets all comments by apartment's id ")
     @GetMapping(value = "/filterbyapartmentid")
-    ResponseEntity<List<CommentDto>> getAllByApartment_Id(@RequestParam("apartmentid") Integer apartmentId) {
+    public ResponseEntity<List<CommentDto>> getAllByApartment_Id(@RequestParam("apartmentid") Integer apartmentId) {
        // log.info("getAllByApartment_Id , CommentController");
         apartmentService.getById(apartmentId);
         return new ResponseEntity<>(commentService.getAllByApartment_Id(apartmentId), HttpStatus.OK);
@@ -55,7 +55,7 @@ public class CommentController {
 
     @ApiOperation(value = "Gets all comments by person's login")
     @GetMapping()
-    ResponseEntity<List<CommentDto>> getAllByPerson() {
+    public ResponseEntity<List<CommentDto>> getAllByPerson() {
         //log.info("getAllByPerson , CommentController ");
         List<CommentDto> comments = commentService.getByPerson_Login();
         return new ResponseEntity<>(comments, HttpStatus.OK);

@@ -29,7 +29,7 @@ public class BookingController {
 
     @ApiOperation(value = "Creates booking")
     @PostMapping()
-    ResponseEntity<BookingDto> save(@Validated @RequestBody BookingDto bookingDto) {
+    public ResponseEntity<BookingDto> save(@Validated @RequestBody BookingDto bookingDto) {
         //log.info("save , BookingController");
         return new ResponseEntity<>(bookingService.save(bookingDto)
                 , HttpStatus.CREATED);
@@ -38,7 +38,7 @@ public class BookingController {
 
     @ApiOperation(value = "Gets all bookings by person's login")
     @GetMapping()
-    ResponseEntity<List<BookingDto>> getByPersonLogin() {
+    public ResponseEntity<List<BookingDto>> getByPersonLogin() {
         //log.info("getByPersonLogin , BookingController");
         return new ResponseEntity<>(bookingService.getByPerson_Login(),
                 HttpStatus.OK);
@@ -46,7 +46,7 @@ public class BookingController {
 
     @ApiOperation(value = "Deletes booking")
     @DeleteMapping()
-    ResponseEntity<Void> deleteById(@RequestParam("id") Integer id) {
+    public ResponseEntity<Void> deleteById(@RequestParam("id") Integer id) {
         //log.info("deleteById , BookingController");
         bookingService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
