@@ -17,6 +17,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Slf4j
 @Api
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/apartments")
 public class ApartmentController {
