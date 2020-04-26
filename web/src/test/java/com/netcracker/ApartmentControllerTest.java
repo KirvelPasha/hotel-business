@@ -3,9 +3,6 @@ package com.netcracker;
 import com.netcracker.controller.ApartmentController;
 import com.netcracker.converter.ApartmentConverter;
 import com.netcracker.dto.ApartmentDto;
-import com.netcracker.entity.Apartment;
-import com.netcracker.repository.ApartmentRepository;
-import com.netcracker.service.ApartmentService;
 import com.netcracker.serviceimpl.ApartmentServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,17 +10,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 public class ApartmentControllerTest {

@@ -2,12 +2,7 @@ package com.netcracker;
 
 import com.netcracker.controller.PersonController;
 import com.netcracker.converter.PersonConverter;
-import com.netcracker.dto.ApartmentDto;
-import com.netcracker.dto.BookingDto;
 import com.netcracker.dto.PersonDto;
-import com.netcracker.entity.Person;
-import com.netcracker.exceptions.PersonNotFoundException;
-import com.netcracker.repository.PersonRepository;
 import com.netcracker.serviceimpl.PersonServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,12 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-import java.util.Optional;
-
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
 public class PersonControllerTest {
@@ -72,7 +62,7 @@ public class PersonControllerTest {
     }*/
 
     @Test
-    public void deleteNoContentTest(){
+    public void deleteNoContentTest() {
         int id = 1;
         personService.deleteById(id);
         ResponseEntity<Void> responseEntity = personController.deleteById(id);

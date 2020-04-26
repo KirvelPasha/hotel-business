@@ -35,14 +35,14 @@ public class ApartmentTypeController {
     @ApiOperation(value = "Gets all  apartments types")
     @GetMapping()
     public ResponseEntity<List<ApartmentTypeDto>> getAll() {
-       // log.info("getAll , ApartmentTypeController");
+        // log.info("getAll , ApartmentTypeController");
         return new ResponseEntity<>(apartmentTypeService.getAll(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Creates apartment type")
     @PostMapping()
     public ResponseEntity<ApartmentTypeDto> save(@Validated @RequestBody ApartmentTypeDto apartmentTypeDto) {
-       // log.info("save , ApartmentTypeController");
+        // log.info("save , ApartmentTypeController");
         return new ResponseEntity<>(apartmentTypeService.save(apartmentTypeDto), HttpStatus.CREATED);
     }
 

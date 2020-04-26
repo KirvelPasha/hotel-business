@@ -2,11 +2,7 @@ package com.netcracker;
 
 import com.netcracker.controller.BookingController;
 import com.netcracker.converter.BookingConverter;
-import com.netcracker.dto.ApartmentDto;
-import com.netcracker.dto.ApartmentTypeDto;
 import com.netcracker.dto.BookingDto;
-import com.netcracker.entity.Booking;
-import com.netcracker.repository.BookingRepository;
 import com.netcracker.serviceimpl.BookingServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +12,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -61,7 +56,7 @@ public class BookingControllerTest {
     }
 
     @Test
-    public void deleteNoContentTest(){
+    public void deleteNoContentTest() {
         int id = 1;
         bookingService.deleteById(id);
         ResponseEntity<Void> responseEntity = bookingController.deleteById(id);

@@ -2,10 +2,8 @@ package com.netcracker;
 
 import com.netcracker.controller.DishOrderController;
 import com.netcracker.converter.DishOrderConverter;
-import com.netcracker.dto.BookingDto;
 import com.netcracker.dto.DishOrderDto;
 import com.netcracker.entity.DishOrder;
-import com.netcracker.repository.DishOrderRepository;
 import com.netcracker.serviceimpl.DishOrderServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -64,7 +61,7 @@ public class DishOrderControllerTest {
     }
 
     @Test
-    public void deleteNoContentTest(){
+    public void deleteNoContentTest() {
         int id = 1;
         dishOrderService.deleteById(id);
         ResponseEntity<Void> responseEntity = dishOrderController.deleteById(id);

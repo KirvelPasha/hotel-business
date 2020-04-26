@@ -1,14 +1,7 @@
 package com.netcracker;
 
-import com.netcracker.controller.ApartmentController;
 import com.netcracker.controller.ApartmentTypeController;
-import com.netcracker.converter.ApartmentTypeConverter;
-import com.netcracker.dto.ApartmentDto;
 import com.netcracker.dto.ApartmentTypeDto;
-import com.netcracker.entity.ApartmentTypes;
-import com.netcracker.repository.ApartmentTypeRepository;
-import com.netcracker.service.ApartmentService;
-import com.netcracker.serviceimpl.ApartmentServiceImpl;
 import com.netcracker.serviceimpl.ApartmentTypeServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,13 +11,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
 public class ApartmentTypeControllerTest {

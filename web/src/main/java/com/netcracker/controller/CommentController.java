@@ -32,7 +32,7 @@ public class CommentController {
     @ApiOperation(value = "Creates comment")
     @PostMapping()
     public ResponseEntity<CommentDto> save(@RequestBody @Validated CommentDto commentDto) {
-       // log.info("save , CommentController");
+        // log.info("save , CommentController");
         return new ResponseEntity<>(commentService.save(commentDto), HttpStatus.CREATED);
     }
 
@@ -48,7 +48,7 @@ public class CommentController {
     @ApiOperation(value = "Gets all comments by apartment's id ")
     @GetMapping(value = "/filterbyapartmentid")
     public ResponseEntity<List<CommentDto>> getAllByApartment_Id(@RequestParam("apartmentid") Integer apartmentId) {
-       // log.info("getAllByApartment_Id , CommentController");
+        // log.info("getAllByApartment_Id , CommentController");
         apartmentService.getById(apartmentId);
         return new ResponseEntity<>(commentService.getAllByApartment_Id(apartmentId), HttpStatus.OK);
     }

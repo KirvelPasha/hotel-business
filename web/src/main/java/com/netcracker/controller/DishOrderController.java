@@ -43,7 +43,7 @@ public class DishOrderController {
     @ApiOperation(value = "Deletes dish order")
     @DeleteMapping()
     public ResponseEntity<Void> deleteById(@RequestParam("id") Integer id) {
-       // log.info("deleteById , DishOrderController");
+        // log.info("deleteById , DishOrderController");
         dishOrderService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -1,13 +1,8 @@
 package com.netcracker;
 
 import com.netcracker.controller.CommentController;
-import com.netcracker.converter.CommentConverter;
-import com.netcracker.dto.BookingDto;
 import com.netcracker.dto.CommentDto;
-import com.netcracker.entity.Comments;
-import com.netcracker.repository.CommentRepository;
 import com.netcracker.service.CommentService;
-import com.netcracker.serviceimpl.CommentServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +11,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -64,7 +58,7 @@ public class CommentControllerTest {
     }
 
     @Test
-    public void deleteNoContentTest(){
+    public void deleteNoContentTest() {
         int id = 1;
         commentService.deleteById(id);
         ResponseEntity<Void> responseEntity = commentController.deleteById(id);

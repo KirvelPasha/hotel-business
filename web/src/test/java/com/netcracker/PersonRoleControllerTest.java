@@ -1,13 +1,8 @@
 package com.netcracker;
 
 import com.netcracker.controller.PersonRoleController;
-import com.netcracker.converter.PersonRoleConverter;
-import com.netcracker.dto.ApartmentDto;
 import com.netcracker.dto.PersonRoleDto;
-import com.netcracker.entity.PersonRole;
-import com.netcracker.repository.PersonRoleRepository;
 import com.netcracker.serviceimpl.PersonRoleServiceImpl;
-import com.netcracker.serviceimpl.PersonServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +11,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,7 +38,8 @@ public class PersonRoleControllerTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        personRoleDtoList = Stream.of(personRoleDto1, personRoleDto2).collect(Collectors.toList());;
+        personRoleDtoList = Stream.of(personRoleDto1, personRoleDto2).collect(Collectors.toList());
+        ;
 
         setupPersonRoleDto(personRoleDto1, 1, ROLE_FIRST_PERSON);
         setupPersonRoleDto(personRoleDto2, 2, ROLE_SECOND_PERSON);

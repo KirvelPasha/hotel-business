@@ -1,11 +1,7 @@
 package com.netcracker;
 
 import com.netcracker.controller.DishController;
-import com.netcracker.converter.DishConverter;
-import com.netcracker.dto.ApartmentDto;
 import com.netcracker.dto.DishDto;
-import com.netcracker.entity.Dish;
-import com.netcracker.repository.DishRepository;
 import com.netcracker.serviceimpl.DishServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +11,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
