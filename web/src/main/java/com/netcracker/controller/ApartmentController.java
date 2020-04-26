@@ -29,7 +29,7 @@ public class ApartmentController {
 
 
     @ApiOperation(value = "Gets apartment  by id")
-    @GetMapping(value = "/")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<ApartmentDto> getById(@PathVariable("id") Integer id) {
         //log.info("getById , ApartmentController ");
         return new ResponseEntity<>(apartmentService.getById(id), HttpStatus.OK);
