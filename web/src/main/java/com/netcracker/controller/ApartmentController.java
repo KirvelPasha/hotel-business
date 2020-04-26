@@ -15,6 +15,7 @@ import java.util.List;
 
 @Slf4j
 @Api
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/apartments")
 public class ApartmentController {
@@ -28,8 +29,8 @@ public class ApartmentController {
 
 
     @ApiOperation(value = "Gets apartment  by id")
-    @GetMapping(value = "/")
-    ResponseEntity<ApartmentDto> getById(@RequestParam("id") Integer id) {
+    @GetMapping(value = "/{id}")
+    ResponseEntity<ApartmentDto> getById(@PathVariable("id") Integer id) {
         log.info("getById , ApartmentController ");
         return new ResponseEntity<>(apartmentService.getById(id), HttpStatus.OK);
     }
