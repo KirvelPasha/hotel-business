@@ -46,8 +46,8 @@ public class CommentController {
     }
 
     @ApiOperation(value = "Gets all comments by apartment's id ")
-    @GetMapping(value = "/filterbyapartmentid")
-    public ResponseEntity<List<CommentDto>> getAllByApartment_Id(@RequestParam("apartmentid") Integer apartmentId) {
+    @GetMapping(value = "/filterbyapartmentid/{apartmentid}")
+    public ResponseEntity<List<CommentDto>> getAllByApartment_Id(@PathVariable("apartmentid") Integer apartmentId) {
         // log.info("getAllByApartment_Id , CommentController");
         apartmentService.getById(apartmentId);
         return new ResponseEntity<>(commentService.getAllByApartment_Id(apartmentId), HttpStatus.OK);
