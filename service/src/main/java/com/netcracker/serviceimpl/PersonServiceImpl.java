@@ -81,18 +81,11 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDto update(PersonUpdate personUpdate) {
-
         PersonRole personRole = personRoleService.getById(personUpdate.getPersonRoleId());
-
         PersonDto personDto = this.getById(personUpdate.getPersonId());
-
         Person person = personConverter.converter(personDto);
-
         person.setPersonRole(personRole);
-
         return personConverter.converter(personRepository.save(person));
-
-
     }
 
     @Override

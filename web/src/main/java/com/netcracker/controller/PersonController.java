@@ -9,11 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Api
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -34,7 +34,7 @@ public class PersonController {
 
     @ApiOperation(value = "Creates person")
     @PostMapping()
-    ResponseEntity<Integer> savePerson(@Validated @RequestBody PersonDto personDto) {
+    ResponseEntity<Integer> savePerson(@RequestBody PersonDto personDto) {
         log.info("savePerson , PersonController");
         return new ResponseEntity<>(personService.save(personDto), HttpStatus.CREATED);
     }
