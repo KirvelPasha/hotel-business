@@ -30,7 +30,7 @@ public class PersonConverter {
 
         person.setPhoneNumber(personDto.getPhoneNumber());
 
-        person.setPassport(passportConverter.converter(personDto.getPassportDto()));
+//        person.setPassport(passportConverter.converter(personDto.getPassportDto()));
 
         return person;
     }

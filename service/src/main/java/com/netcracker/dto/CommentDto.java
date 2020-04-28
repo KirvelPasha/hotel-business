@@ -7,10 +7,8 @@ import java.util.Objects;
 
 
 public class CommentDto {
-
     private Integer id;
-
-    private Integer ApartmentId;
+    private Integer apartmentId;
 
     @NotBlank(message = "Comment is mandatory")
     private String comment;
@@ -18,11 +16,11 @@ public class CommentDto {
     private String personLogin;
 
     public Integer getApartmentId() {
-        return ApartmentId;
+        return apartmentId;
     }
 
     public void setApartmentId(Integer apartmentId) {
-        ApartmentId = apartmentId;
+        this.apartmentId = apartmentId;
     }
 
     public String getComment() {
@@ -56,13 +54,23 @@ public class CommentDto {
         if (o == null || getClass() != o.getClass()) return false;
         CommentDto that = (CommentDto) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(ApartmentId, that.ApartmentId) &&
+                Objects.equals(apartmentId, that.apartmentId) &&
                 Objects.equals(comment, that.comment) &&
                 Objects.equals(personLogin, that.personLogin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, ApartmentId, comment, personLogin);
+        return Objects.hash(id, apartmentId, comment, personLogin);
+    }
+
+    @Override
+    public String toString() {
+        return "CommentDto{" +
+                "id=" + id +
+                ", apartmentId=" + apartmentId +
+                ", comment='" + comment + '\'' +
+                ", personLogin='" + personLogin + '\'' +
+                '}';
     }
 }
