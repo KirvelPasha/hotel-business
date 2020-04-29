@@ -11,7 +11,9 @@ import com.netcracker.repository.CommentRepository;
 import com.netcracker.service.ApartmentService;
 import com.netcracker.service.CommentService;
 import com.netcracker.service.PersonService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
 
+    @Cacheable(value = "comments")
     @Override
     public CommentDto save(CommentDto commentDto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -55,6 +58,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Cacheable("apartments")
     public List<CommentDto> getAllByApartment_Id(Integer apartmentId) {
         return commentRepository.getAllByApartment_Id(apartmentId)
                 .stream()
