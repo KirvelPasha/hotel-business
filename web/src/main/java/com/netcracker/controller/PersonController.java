@@ -9,11 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Api
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/person")
 public class PersonController {
@@ -27,29 +27,22 @@ public class PersonController {
 
     @ApiOperation(value = "Gets person by id")
     @GetMapping()
-    public ResponseEntity<PersonDto> getById(@RequestParam Integer id) {
-        // log.info("getById , PersonController");
+    ResponseEntity<PersonDto> getById(@RequestParam Integer id) {
+        log.info("getById , PersonController");
         return new ResponseEntity<>(personService.getById(id), HttpStatus.OK);
     }
 
-   /* @ApiOperation(value = "Gets person by login")
-    @GetMapping()
-    public ResponseEntity<PersonDto> getByLogin(@RequestParam String login) {
-        // log.info("getById , PersonController");
-        return new ResponseEntity<>(personService.findByLogin(login), HttpStatus.OK);
-    }*/
-
     @ApiOperation(value = "Creates person")
     @PostMapping()
-    public ResponseEntity<Integer> savePerson(@Validated @RequestBody PersonDto personDto) {
-        // log.info("savePerson , PersonController");
+    ResponseEntity<Integer> savePerson(@RequestBody PersonDto personDto) {
+        log.info("savePerson , PersonController");
         return new ResponseEntity<>(personService.save(personDto), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Updates person")
     @PatchMapping()
     public ResponseEntity<PersonDto> update(@RequestBody PersonUpdate personUpdate) {
-        // log.info("update , PersonController");
+        log.info("update , PersonController");
         return new ResponseEntity<>(personService.update(personUpdate), HttpStatus.OK);
 
     }
