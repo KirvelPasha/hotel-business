@@ -3,6 +3,7 @@ package com.netcracker.service;
 
 import com.netcracker.dto.PersonDto;
 import com.netcracker.entity.Person;
+import com.netcracker.module.MockPersonLogin;
 import com.netcracker.requestbody.PersonUpdate;
 
 public interface PersonService {
@@ -16,5 +17,7 @@ public interface PersonService {
     Person findByLogin(String login);
 
     void deleteById(Integer id);
+
+    String login(MockPersonLogin mockPersonLogin);
 
 }

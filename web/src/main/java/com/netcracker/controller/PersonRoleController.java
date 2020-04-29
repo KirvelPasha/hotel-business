@@ -30,14 +30,14 @@ public class PersonRoleController {
     @ApiOperation(value = "Gets by id")
     @GetMapping(value = "/")
     ResponseEntity<PersonRole> getById(@RequestParam("id") Integer id) {
-        log.info("getById ,vPersonRoleController");
+        //log.info("getById ,vPersonRoleController");
         return new ResponseEntity<>(personRoleService.getById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Gets all person's roles")
     @GetMapping()
     ResponseEntity<List<PersonRole>> getAll() {
-        log.info("getAll , PersonRoleController");
+        //log.info("getAll , PersonRoleController");
         return new ResponseEntity<>(personRoleService.getAll(), HttpStatus.OK);
     }
 

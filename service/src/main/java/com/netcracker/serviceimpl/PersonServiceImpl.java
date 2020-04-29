@@ -6,6 +6,7 @@ import com.netcracker.dto.PersonDto;
 import com.netcracker.entity.Person;
 import com.netcracker.entity.PersonRole;
 import com.netcracker.exceptions.PersonNotFoundException;
+import com.netcracker.module.MockPersonLogin;
 import com.netcracker.repository.PersonRepository;
 import com.netcracker.requestbody.PersonUpdate;
 import com.netcracker.service.PassportService;
@@ -98,6 +99,15 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public void deleteById(Integer id) {
         personRepository.deleteById(id);
+    }
+
+    @Override
+    public String login(MockPersonLogin mockPersonLogin) {
+        Optional<Person> optionalPerson = personRepository.findByLogin(mockPersonLogin.getLogin());
+        if (!optionalPerson.isPresent()) {
+            throw new PersonNotFoundException("No such person");
+        }
+        return "Success";
     }
 
 

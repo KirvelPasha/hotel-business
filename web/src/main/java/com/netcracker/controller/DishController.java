@@ -29,14 +29,14 @@ public class DishController {
     @ApiOperation(value = "Gets all cheaper dishes")
     @GetMapping(value = "/filterbyprice")
     ResponseEntity<List<DishDto>> getCheaperDish(@RequestParam("price") int price) {
-        log.info("getCheaperDish , DishController");
+       // log.info("getCheaperDish , DishController");
         return new ResponseEntity<>(dishService.getCheaperDish(price), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Gets all  dishes")
     @GetMapping()
     ResponseEntity<List<DishDto>> getAll() {
-        log.info("getAll , DishController ");
+       // log.info("getAll , DishController ");
         return new ResponseEntity<>(dishService.getAll(), HttpStatus.OK);
     }
 }
