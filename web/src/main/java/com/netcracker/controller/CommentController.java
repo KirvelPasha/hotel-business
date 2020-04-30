@@ -32,9 +32,10 @@ public class CommentController {
 
     @ApiOperation(value = "Creates comment")
     @PostMapping()
-    ResponseEntity<CommentDto> save(@RequestBody @Validated CommentDto commentDto) {
+    ResponseEntity<Void> save(@RequestBody @Validated CommentDto commentDto) {
        // log.info("save , CommentController");
-        return new ResponseEntity<>(commentService.save(commentDto), HttpStatus.CREATED);
+        commentService.save(commentDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Deletes comment")

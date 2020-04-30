@@ -26,7 +26,7 @@ public class CommentConverter {
 
         commentDto.setApartmentId(comments.getApartment().getId());
 
-        commentDto.setPersonLogin(comments.getPerson().getLogin());
+        //commentDto.setPersonLogin(comments.getPerson().getLogin());
 
         return commentDto;
     }

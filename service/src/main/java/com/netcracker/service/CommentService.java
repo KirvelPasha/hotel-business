@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CommentService {
 
-    CommentDto save(CommentDto commentDto);
+    void save(CommentDto commentDto);
 
     List<CommentDto> getAllByApartment_Id(Integer apartmentId);
 
