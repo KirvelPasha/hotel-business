@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonRoleServiceImpl implements PersonRoleService {
@@ -26,22 +27,25 @@ public class PersonRoleServiceImpl implements PersonRoleService {
     }
 
     @Override
-    public PersonRole getById(Integer id) {
+    public PersonRoleDto getById(Integer id) {
         Optional<PersonRole> optionalPersonRole = personRoleRepository.findById(id);
         if (optionalPersonRole.isPresent()) {
-            return optionalPersonRole.get();
+            return personRoleConverter.converter(optionalPersonRole.get());
         }
         throw new IllegalArgumentException("No such person role");
     }
 
     @Override
-    public List<PersonRole> getAll() {
-        return personRoleRepository.findAll();
+    public List<PersonRoleDto> getAll() {
+        return personRoleRepository.findAll()
+                .stream()
+                .map(personRoleConverter::converter)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public PersonRole getByRole(String role) {
-        return personRoleRepository.getByRole(role);
+    public PersonRoleDto getByRole(String role) {
+        return personRoleConverter.converter(personRoleRepository.getByRole(role));
     }
 
     @Override

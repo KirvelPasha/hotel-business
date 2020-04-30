@@ -1,7 +1,6 @@
 package com.netcracker.controller;
 
 import com.netcracker.dto.PersonRoleDto;
-import com.netcracker.entity.PersonRole;
 import com.netcracker.service.PersonRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,21 +28,21 @@ public class PersonRoleController {
 
     @ApiOperation(value = "Gets by id")
     @GetMapping(value = "/")
-    ResponseEntity<PersonRole> getById(@RequestParam("id") Integer id) {
-        log.info("getById ,vPersonRoleController");
+    public ResponseEntity<PersonRoleDto> getById(@RequestParam("id") Integer id) {
+        // log.info("getById ,vPersonRoleController");
         return new ResponseEntity<>(personRoleService.getById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Gets all person's roles")
     @GetMapping()
-    ResponseEntity<List<PersonRole>> getAll() {
-        log.info("getAll , PersonRoleController");
+    public ResponseEntity<List<PersonRoleDto>> getAll() {
+        //  log.info("getAll , PersonRoleController");
         return new ResponseEntity<>(personRoleService.getAll(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Creates role")
     @PostMapping()
-    ResponseEntity<PersonRoleDto> save(@RequestBody PersonRoleDto personRoleDto) {
+    public ResponseEntity<PersonRoleDto> save(@RequestBody PersonRoleDto personRoleDto) {
         return new ResponseEntity<>(personRoleService.save(personRoleDto), HttpStatus.CREATED);
     }
 

@@ -2,6 +2,7 @@ package com.netcracker.serviceimpl;
 
 import com.netcracker.converter.PassportConverter;
 import com.netcracker.converter.PersonConverter;
+import com.netcracker.converter.PersonRoleConverter;
 import com.netcracker.dto.PersonDto;
 import com.netcracker.entity.Person;
 import com.netcracker.entity.PersonRole;
@@ -28,11 +29,12 @@ public class PersonServiceImpl implements PersonService {
     private final Validate validate;
     private final PasswordEncoder passwordEncoder;
     private final PassportConverter passportConverter;
+    private final PersonRoleConverter personRoleConverter;
 
     @Autowired
     public PersonServiceImpl(PersonRepository personRepository, PassportService passportService,
                              PersonConverter personConverter, PersonRoleService personRoleService,
-                             Validate validate, PasswordEncoder passwordEncoder, PassportConverter passportConverter) {
+                             Validate validate, PasswordEncoder passwordEncoder, PassportConverter passportConverter, PersonRoleConverter personRoleConverter) {
 
         this.personRepository = personRepository;
         this.passportService = passportService;
@@ -41,6 +43,7 @@ public class PersonServiceImpl implements PersonService {
         this.validate = validate;
         this.passwordEncoder = passwordEncoder;
         this.passportConverter = passportConverter;
+        this.personRoleConverter = personRoleConverter;
     }
 
     @Override
@@ -79,7 +82,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public PersonDto update(PersonUpdate personUpdate) {
-        PersonRole personRole = personRoleService.getById(personUpdate.getPersonRoleId());
+        PersonRole personRole = personRoleConverter.converter(personRoleService.getById(personUpdate.getPersonRoleId()));
         PersonDto personDto = this.getById(personUpdate.getPersonId());
         Person person = personConverter.converter(personDto);
         person.setPersonRole(personRole);
@@ -87,10 +90,10 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person findByLogin(String login) {
+    public PersonDto findByLogin(String login) {
         Optional<Person> optionalPerson = personRepository.findByLogin(login);
         if (optionalPerson.isPresent()) {
-            return optionalPerson.get();
+            return personConverter.converter(optionalPerson.get());
         }
         throw new PersonNotFoundException("No such person");
     }

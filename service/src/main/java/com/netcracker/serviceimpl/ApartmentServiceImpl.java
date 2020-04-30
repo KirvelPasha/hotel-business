@@ -41,7 +41,7 @@ public class ApartmentServiceImpl implements ApartmentService {
     @Override
     @Cacheable("apartments")
     public ApartmentDto getById(Integer id) {
-        log.info("getting apartment by id: {}", id);
+       // log.info("getting apartment by id: {}", id);
 
         Optional<Apartment> optionalApartment = apartmentRepository.findById(id);
         if (optionalApartment.isPresent()) {
@@ -54,7 +54,7 @@ public class ApartmentServiceImpl implements ApartmentService {
 
     @Override
     public List<ApartmentDto> getAll() {
-        log.info("getting all apartments");
+        //log.info("getting all apartments");
         return apartmentRepository.findAll()
                 .stream()
                 .map(apartmentConverter::converter)
@@ -109,7 +109,7 @@ public class ApartmentServiceImpl implements ApartmentService {
     @Override
     @CachePut("apartments")
     public ApartmentDto save(ApartmentDto apartmentDto) {
-        log.info("save apartment");
+        //log.info("save apartment");
         if (apartmentDto.getId() != null) {
             if (apartmentRepository.findById(apartmentDto.getId()).isPresent()) {
                 throw new IllegalArgumentException("Apartment  with this id already exists");
@@ -134,7 +134,8 @@ public class ApartmentServiceImpl implements ApartmentService {
     @Override
     @CacheEvict(value = "apartment")
     public void delete(Integer id) {
-        log.info("delete apartment by id: {}", id);
+        //log.info("delete apartment by id: {}", id);
+        this.getById(id);
         apartmentRepository.deleteById(id);
     }
 

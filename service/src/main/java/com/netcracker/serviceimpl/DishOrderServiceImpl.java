@@ -3,6 +3,7 @@ package com.netcracker.serviceimpl;
 
 import com.netcracker.converter.DishConverter;
 import com.netcracker.converter.DishOrderConverter;
+import com.netcracker.converter.PersonConverter;
 import com.netcracker.dto.DishOrderDto;
 import com.netcracker.entity.Dish;
 import com.netcracker.entity.DishOrder;
@@ -28,23 +29,25 @@ public class DishOrderServiceImpl implements DishOrderService {
     private final PersonService personService;
     private final DishConverter dishConverter;
     private final DishOrderConverter dishOrderConverter;
+    private final PersonConverter personConverter;
 
     @Autowired
     public DishOrderServiceImpl(DishOrderRepository dishOrderRepository, DishService dishService,
                                 PersonService personService, DishConverter dishConverter,
-                                DishOrderConverter dishOrderConverter) {
+                                DishOrderConverter dishOrderConverter, PersonConverter personConverter) {
         this.dishOrderRepository = dishOrderRepository;
         this.dishService = dishService;
         this.personService = personService;
         this.dishConverter = dishConverter;
         this.dishOrderConverter = dishOrderConverter;
+        this.personConverter = personConverter;
     }
 
     public DishOrderDto save(DishOrderDto dishOrderDto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         DishOrder dishOrder = new DishOrder();
         Dish dish = dishConverter.converter(dishService.getById(dishOrderDto.getDishId()));
-        Person person = personService.findByLogin(user.getUsername());
+        Person person = personConverter.converter(personService.findByLogin(user.getUsername()));
         dishOrder.setDish(dish);
         dishOrder.setPerson(person);
         return dishOrderConverter.converter(dishOrderRepository.save(dishOrder));
