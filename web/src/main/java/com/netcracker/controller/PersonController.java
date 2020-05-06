@@ -27,22 +27,22 @@ public class PersonController {
 
     @ApiOperation(value = "Gets person by id")
     @GetMapping()
-    ResponseEntity<PersonDto> getById(@RequestParam Integer id) {
-        log.info("getById , PersonController");
+    public ResponseEntity<PersonDto> getById(@RequestParam Integer id) {
+        //log.info("getById , PersonController");
         return new ResponseEntity<>(personService.getById(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Creates person")
     @PostMapping()
-    ResponseEntity<Integer> savePerson(@RequestBody PersonDto personDto) {
-        log.info("savePerson , PersonController");
+    public ResponseEntity<Integer> savePerson(@RequestBody PersonDto personDto) {
+        //log.info("savePerson , PersonController");
         return new ResponseEntity<>(personService.save(personDto), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Updates person")
     @PatchMapping()
     public ResponseEntity<PersonDto> update(@RequestBody PersonUpdate personUpdate) {
-        log.info("update , PersonController");
+        //log.info("update , PersonController");
         return new ResponseEntity<>(personService.update(personUpdate), HttpStatus.OK);
 
     }
@@ -52,6 +52,4 @@ public class PersonController {
         personService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 }
