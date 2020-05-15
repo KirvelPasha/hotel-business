@@ -59,6 +59,4 @@ public class PersonController {
     ResponseEntity<String> entryPerson(@RequestBody MockPersonLogin mockPersonLogin) {
         return new ResponseEntity<>(personService.login(mockPersonLogin), HttpStatus.OK);
     }
-
-
 }

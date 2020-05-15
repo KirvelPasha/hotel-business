@@ -61,12 +61,12 @@ public class PersonServiceImpl implements PersonService {
     public Integer save(PersonDto personDto) {
 
         Optional<Person> optionalPerson = personRepository.findByLogin(personDto.getLogin());
-//
-//        if (optionalPerson.isPresent()) {
-//            throw new IllegalArgumentException("User with this login already exists");
-//        } else if (validate.correctPhoneNumber(personDto.getPhoneNumber()) &&
-//                validate.correctDate(personDto.getPassportDto().getDateExpire())) {
-//            PersonRole personRole = personRoleService.getByRole("user");
+
+        if (optionalPerson.isPresent()) {
+            throw new IllegalArgumentException("User with this login already exists");
+        } /*else if (validate.correctPhoneNumber(personDto.getPhoneNumber()) &&
+                validate.correctDate(personDto.getPassportDto().getDateExpire())) {
+            PersonRole personRole = personRoleService.getByRole("user");*/
             Person person = personConverter.converter(personDto);
 
 //            person.setPassport(passportConverter.converter(
@@ -109,6 +109,4 @@ public class PersonServiceImpl implements PersonService {
         }
         return "Success";
     }
-
-
 }
